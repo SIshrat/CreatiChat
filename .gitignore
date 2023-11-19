@@ -1,13 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+/creatichat/node_modules
 /.pnp
 .pnp.js
 
-package.json
-package-lock.json
-/public
+/creatichat/package.json
+/creatichat/package-lock.json
+/creatichat/public
 
 
 # testing
