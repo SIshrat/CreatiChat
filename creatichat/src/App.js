@@ -19,7 +19,23 @@ function App() {
       // date:
       // username: 'Toucanucan',
       // avatar: {property.img},      
-    }
+    },
+    {
+      // id: 'a2'
+      // title: '',
+      // description: '',
+      // date:
+      // username: 'Toucanucan',
+      // avatar: {property.img},
+    },
+    {
+      // id: 'a3'
+      // title: '',
+      // description: '',
+      // date:
+      // username: 'Toucanucan',
+      // avatar: {property.img},
+    },
   ]
 
   return (
