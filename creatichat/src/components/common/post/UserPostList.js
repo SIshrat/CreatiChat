@@ -1,14 +1,22 @@
 import React from "react";
+import Post from "./Post"
 import User from "../user/User";
 
-const PostList = (props) => {
+import './Post.css'
+import './PostList.css'
+
+const UserPostList = (props) => {
     return (
         <Post className="posts">
             <ul>
-                {props.posts.map((post) => (
+                {props.posts.map((user) => (
                     <User
                     key={user.id}
+                    title={user.title}
+                    description={user.description}
+                    date={user.date}
                     username={user.username}
+                    avatar={user.avatar}
                     />
                 ))}
             </ul>
@@ -16,4 +24,4 @@ const PostList = (props) => {
     );
 }
 
-export default PostList;
+export default UserPostList;
