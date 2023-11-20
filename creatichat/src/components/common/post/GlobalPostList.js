@@ -1,19 +1,20 @@
 import React from "react";
 import User from "../user/User";
+import Post from "./Post";
 
-const PostList = (props) => {
+const GlobalPostList = (props) => {
     return (
         <Post className="posts">
-            <ul>
+            {/* <ul>                
                 {props.posts.map((post) => (
                     <User
-                    key={user.id}
-                    username={user.username}
+                    key={props.id}
+                    username={props.username}
                     />
                 ))}
-            </ul>
+            </ul> */}
         </Post>
     );
 }
 
-export default PostList;
+export default GlobalPostList;

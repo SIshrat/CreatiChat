@@ -1,0 +1,64 @@
+.header {
+    background-color: #FFE0AC;
+    color: #6886C5;
+    padding: 0;
+    width: 100%;
+    border-bottom-left-radius: 50px;
+    line-height: 0;
+    margin: 0;
+}
+
+.website {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.name {
+    font-size: 50px;
+    font-weight: 500;
+    margin-right: 150px;
+}
+
+.logo-img {
+    height: auto;
+    margin-right: 10px;
+}
+
+.guest-box {
+    background-color: #6886C5;
+    padding: 40px 25px;
+}
+.guest-msg {
+    font-size: 18px;
+    color: white;
+}
+.sign-in {
+    padding: 8px 30px;
+    margin-left: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #FFADB9;
+}
+.sign-up {
+    padding: 8px 30px;
+    margin-left: 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #6886C5;
+    background-color: #FFE0AC;
+}
+
+p {
+    margin-bottom: 40px;
+}
+.sign-in:hover {
+    background-color: palevioletred;
+}
+.sign-up:hover {
+    background-color: #ffcd79;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CreatePostView = () => {
+const CreatePostView = (props) => {
     
 }
 
