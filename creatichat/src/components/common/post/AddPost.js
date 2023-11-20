@@ -7,10 +7,16 @@ const AddPost = (props) => {
     const titleChangeHandler = (event) => {
         setEnteredTitle(event.target.value);
     }
-    const descriptionChangeHandler = (event) => 
+    const descriptionChangeHandler = (event) => {
+        setEnteredDescription(event.target.value);
+    }
+
+    const submitHandler = (event) => {
+        event.prevenDefault();
+    }
 
     // Create post object and clear form
-    const postData ={
+    const postData = {
         id: Math.random().toString(),
         title: enteredTitle,
         description: enteredDescription,
@@ -23,7 +29,10 @@ const AddPost = (props) => {
     } else if (postData.description.trim() === '') {
         alert('Please add a description!');
     } else {
-
+        console.log(postData);
+        setEnteredTitle('');
+        setEnteredDescription('');
+        //props.onSavePostData(postData);
     }
 }
 
