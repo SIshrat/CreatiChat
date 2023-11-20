@@ -1,0 +1,22 @@
+.container {
+    background-color: white;
+    border-radius: 15px;
+    border: 15px solid #6886c5;
+    padding: 0px;
+    margin: 5px 20px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+  }
+
+.left-section {
+    flex: 1; /* Take up available space */
+    padding-right: 20px; /* Add spacing between sections */
+}
+  
+.right-section {
+    padding-left: 20px; /* Add spacing between sections */
+    background-color: white;
+    border: 15px solid #ffe0ac;
+    padding: 185px 170px;
+}
+  

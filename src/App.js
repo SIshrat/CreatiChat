@@ -8,6 +8,9 @@ import GuestHomeView from './components/homeview/GuestHomeView';
 import LoggedHomeview from './components/homeview/LoggedHomeView';
 import CreatePostView from './components/createview/CreatePostView';
 import EditPostView from './components/editview/EditPostView';
+import Footer from './components/common/footer/Footer';
+import Header from './components/common/header/Header';
+import Navbar from './components/common/navbar/Navbar';
 
 function App() {
 
@@ -47,6 +50,7 @@ function App() {
           <Route path='/create-post' element={<CreatePostView />}/>
           <Route path='/update' element={<EditPostView />}/>
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

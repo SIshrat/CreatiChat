@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import Header from '../common/header/Header';
 import Navbar from '../common/navbar/Navbar';
+import PostBox from '../common/postbox/PostBox';
 
 const GuestHomeView = () => {
 
@@ -16,6 +17,7 @@ const GuestHomeView = () => {
         <>
             <Header />
             <Navbar />
+            <PostBox />
         </>
     );
     
