@@ -16,9 +16,10 @@
 }
 
 .name {
-    font-size: 50px;
+    font-size: 80px;
     font-weight: 500;
-    margin-right: 150px;
+    margin-right: 350px;
+    margin-top: 50px;
 }
 
 .logo-img {
@@ -44,18 +45,21 @@
     background-color: #FFADB9;
 }
 .sign-up {
-  padding: 8px 30px;
-  margin-left: 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  color: #6886C5;
-  background-color: #FFE0AC;
+    padding: 8px 30px;
+    margin-left: 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #6886C5;
+    background-color: #FFE0AC;
 }
 
+p {
+    margin-bottom: 40px;
+}
 .sign-in:hover {
     background-color: palevioletred;
 }
 .sign-up:hover {
-  background-color: #ffcd79;
+    background-color: #ffcd79;
 }

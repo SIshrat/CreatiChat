@@ -3,12 +3,12 @@
     width: 90%;
     max-width: 40rem;
 }
-  
+
 .users ul {
-    list-style: none;
+    list-style-type: none;
     padding: 1rem;
 }
-  
+
 .users li {
     border: 1px solid #ccc;
     margin: 0.5rem 0;
