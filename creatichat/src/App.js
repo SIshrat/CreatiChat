@@ -8,14 +8,13 @@ import HomeView from './components/homeview/HomeView';
 import CreatePostView from './components/createview/CreatePostView';
 import EditPostView from './components/editview/EditPostView';
 import Footer from './components/common/footer/Footer';
-import Header from './components/common/header/Header';
-import Navbar from './components/common/navbar/Navbar';
 
 function App() {
 
   const DUMMY_POSTS = [
     {
       id: 'a1',
+      postId: 'b1',
       title: 'Making new section in web',
       description: 'So I think this site could use some re-adjustment, the user logged in could see their posts in their feed.',
       date: "10-31-2023",
@@ -23,7 +22,8 @@ function App() {
       avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3xh2m4bT6AiPkeH4C2_ObAKw1eb37pufGGA&usqp=CAU',      
     },
     {
-      id: 'a2',
+      id: 'a2',      
+      postId: 'b2',
       title: '',
       description: 'I am looking forward to make a new website, particularly something involving-well, whatever it is...what do you guys think?',
       date: "11-01-2023",
@@ -32,6 +32,7 @@ function App() {
     },
     {
       id: 'a3',
+      postId: 'b3',
       title: 'Updates so far on this site',
       description: 'This site needs more work, but we could try giving more ideas!',
       date: "11-15-2023",
