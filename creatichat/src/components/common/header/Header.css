@@ -15,6 +15,7 @@
     align-items: center;
 }
 
+
 .name {
     font-size: 50px;
     font-weight: 500;
@@ -51,6 +52,17 @@
     cursor: pointer;
     color: #6886C5;
     background-color: #FFE0AC;
+}
+
+.sign-out {
+    text-decoration: none;
+    padding: 8px 30px;
+    margin-left: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #FFADB9;
 }
 
 p {

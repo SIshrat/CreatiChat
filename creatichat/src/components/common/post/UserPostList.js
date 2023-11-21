@@ -29,7 +29,7 @@ const UserPostList = (props) => {
                     </>
                     ))}
                 </ul>
-                <Link to="/createview:id}"><img src={AddIcon}/></Link>
+                <Link to='/create-post'><img src={AddIcon}/></Link>
             </Post>
         </>
     );

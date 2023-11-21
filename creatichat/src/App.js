@@ -61,8 +61,9 @@ function App() {
     <Router> 
       <div>
         <Routes>
-          <Route exact path='/' element={<HomeView posts={globalList} logState={isLoggedIn} toggleLogin={logStateHandler}/>}/>
-          <Route path='/create-post:id' element={<CreatePostView onSavePostData={addPostHandler}/>}/>
+          <Route exact path='/' element={<HomeView posts={globalList} logState={false} toggleLogin={logStateHandler}/>}/>
+          <Route path='/home' element={<HomeView posts={globalList} logState={true} toggleLogin={logStateHandler}/>}/>
+          <Route path='/create-post' element={<CreatePostView onSavePostData={addPostHandler} logState={isLoggedIn}/>}/>
           <Route path='/update/:id' element={<EditPostView />}/>
         </Routes>
         <Footer />

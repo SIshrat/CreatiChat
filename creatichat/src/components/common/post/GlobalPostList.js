@@ -2,8 +2,9 @@ import React from 'react';
 import Post from './Post';
 import User from "../user/User";
 import Content from './Content';
-import './Post.css';
 import './PostList.css';
+import './Post.css';
+
 
 const GlobalPostList = (props) => {
     return (

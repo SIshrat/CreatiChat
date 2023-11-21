@@ -9,7 +9,7 @@ const HomeView = ({posts, logState, toggleLogin}) => {
     return(
         <>
             <Header logState={logState} toggleLogin={toggleLogin}/>
-            <Navbar />
+            {(logState) ? (<Navbar />) : (null)}
             <PostBox posts={posts} logState={logState}/>
         </>
     );

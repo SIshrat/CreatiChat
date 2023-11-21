@@ -14,8 +14,8 @@ const Header = ({logState, toggleLogin}) => {
                 {(!logState) ?
                 (<div className="guest-box">
                     <p className="guest-msg"> Hello, you are viewing as a guest </p>
-                    <button className="sign-in" onClick={toggleLogin}> Sign In </button>
-                    <button className="sign-up" onClick={toggleLogin}> Sign Up </button>                                                          
+                    <Link to="/home" className="sign-in" onClick={toggleLogin}> Sign In </Link>
+                    <Link to="/home" className="sign-up" onClick={toggleLogin}> Sign Up </Link>                                                          
                 </div>)
                 : (<div className="guest-box">
                     <p className="guest-msg"> Welcome, DefaultUserName! </p>
