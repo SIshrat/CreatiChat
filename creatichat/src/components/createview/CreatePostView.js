@@ -9,7 +9,7 @@ const CreatePostView = (props) => {
         <>
             <Header logState={props.logState}/>
             <Navbar />
-            <AddPost />
+            {/* <AddPost /> */}
         </>
     );
 }

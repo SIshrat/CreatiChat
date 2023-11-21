@@ -24,7 +24,7 @@ function App() {
     {
       id: 'a2',      
       postId: 'b2',
-      title: '',
+      title: 'Looking for idea to make a new site!',
       description: 'I am looking forward to make a new website, particularly something involving-well, whatever it is...what do you guys think?',
       date: "11-01-2023",
       username: 'Shi',
@@ -61,8 +61,8 @@ function App() {
     <Router> 
       <div>
         <Routes>
-          <Route exact path='/' element={<HomeView posts={globalList} logState={false} toggleLogin={logStateHandler}/>}/>
-          <Route path='/home' element={<HomeView posts={globalList} logState={true} toggleLogin={logStateHandler}/>}/>
+          <Route exact path='/' element={<HomeView posts={globalList} logState={isLoggedIn} toggleLogin={logStateHandler}/>}/>
+          <Route path='/home' element={<HomeView posts={globalList} logState={isLoggedIn} toggleLogin={logStateHandler}/>}/>
           <Route path='/create-post' element={<CreatePostView onSavePostData={addPostHandler} logState={isLoggedIn}/>}/>
           <Route path='/update/:id' element={<EditPostView />}/>
         </Routes>
