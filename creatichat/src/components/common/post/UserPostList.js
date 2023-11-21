@@ -11,25 +11,25 @@ import AddIcon from '../../../images/addIcon.png';
 const UserPostList = (props) => {
     return (
         <>
+            <Link to='/create-post' className="add-btn"><img src={AddIcon}/></Link>
             <Post className="posts">
                 <ul>
                     {props.userPosts.map((post) => (
                     <>
+                        <User
+                            key={post.id}
+                            username={post.username}
+                            avatar={post.avatar}
+                        />
                         <Content 
                             key={post.postId}
                             title={post.title}
                             description={post.description}
                             date={post.date}
                         />
-                        <User
-                            key={post.id}
-                            username={post.username}
-                            avatar={post.avatar}
-                        />
                     </>
                     ))}
                 </ul>
-                <Link to='/create-post'><img src={AddIcon}/></Link>
             </Post>
         </>
     );

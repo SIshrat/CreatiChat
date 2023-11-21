@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
-import logo from './CreatiChat Logo.png';
+import logo from '../../../images/CreatiChat Logo.png';
+import User from '../user/User';
 import Button from '../Button';
 
-const Header = ({logState, toggleLogin}) => {    
+const Header = ({logState, toggleLogin, user}) => {    
 
     return(
         <header className="header">
@@ -18,7 +19,8 @@ const Header = ({logState, toggleLogin}) => {
                     <Link to="/home" className="sign-up" onClick={toggleLogin}> Sign Up </Link>                                                          
                 </div>)
                 : (<div className="guest-box">
-                    <p className="guest-msg"> Welcome, DefaultUserName! </p>
+                    <p className="guest-msg"> Welcome, {user.username}!</p>
+                    <img src={user.avatar} alt="defaultAvatar" className="currentUser-img"/>
                     <Link to="/" className="sign-out" onClick={toggleLogin}> Sign Out </Link>
                 </div>)
                 }

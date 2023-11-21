@@ -1,6 +1,7 @@
 .button {
+    text-decoration: none;
     font: inherit;
-    padding: 8px 60px;
+    padding: 8px 110px;
     margin-left: 15px;
     border: none;
     border-radius: 4px;
@@ -12,4 +13,19 @@
 .button:hover,
 .button:active {
     background-color: palevioletred;
+}
+
+.post-btn {
+    padding: 10px;
+    margin: 50px;
+    text-decoration: none;
+    background-color: #6886C5;
+    color: #fff;
+}
+
+.add-btn {
+    padding: 35px 10px 5px;
+    border-radius: 100%;
+    cursor: pointer;
+    background-color: #FFADB9;   
 }

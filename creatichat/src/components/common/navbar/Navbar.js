@@ -7,10 +7,10 @@ const Navbar = () => {
     
     return(
         <div className="nav">
-            <Button><Link to="/home"> Home</Link></Button>
+            <Link to="/home" className="button">Home</Link>
             <Button>Profile</Button>
-            <Button> Social </Button>
-            <Button>  FAQ  </Button>
+            <Button>Social</Button>
+            <Button>FAQ</Button>
             <Button>Contact</Button>
         </div>
     );
