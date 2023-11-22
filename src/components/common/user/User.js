@@ -1,5 +1,4 @@
 import React from 'react';
-import avatar from '../../../images/defaultAvatar.jpg';
 import './User.css';
 
 const User = props => {

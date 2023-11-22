@@ -1,11 +1,12 @@
 import React from 'react';
-import './Content.css';
 
 const Content = props => {
     return(
-        <div key={props.postId} className="post-info">
+        <div key={props.postId} className="user-content">
             <h5>{props.title}</h5>
-            <p>{props.description}</p>
+            <div className="description-container" >
+                <p>{props.description}</p>
+            </div>
             <h6>{props.date}</h6>
         </div>
     );

@@ -1,24 +1,26 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
-import logo from './CreatiChat Logo.png';
+import logo from '../../../images/CreatiChat Logo.png';
+import User from '../user/User';
 import Button from '../Button';
 
-const Header = ({logState, toggleLogin}) => {    
+const Header = ({logState, toggleLogin, user}) => {    
 
     return(
         <header className="header">
             <div className="website">
-                <img src={logo} alt="Logo" width="94" height="97" className="logo-img" />
+                <img src={logo} alt="Logo" width="84" height="87" className="logo-img" />
                 <p className="name">CreatiChat</p>
                 {(!logState) ?
                 (<div className="guest-box">
                     <p className="guest-msg"> Hello, you are viewing as a guest </p>
-                    <button className="sign-in" onClick={toggleLogin}> Sign In </button>
-                    <button className="sign-up" onClick={toggleLogin}> Sign Up </button>                                                          
+                    <Link to="/home" className="sign-in" onClick={toggleLogin}> Sign In </Link>
+                    <Link to="/home" className="sign-up" onClick={toggleLogin}> Sign Up </Link>                                                          
                 </div>)
                 : (<div className="guest-box">
-                    <p className="guest-msg"> Welcome, DefaultUserName! </p>
+                    <p className="guest-msg"> Welcome, {user.username}!</p>
+                    <img src={user.avatar} alt="defaultAvatar" className="currentUser-img"/>
                     <Link to="/" className="sign-out" onClick={toggleLogin}> Sign Out </Link>
                 </div>)
                 }

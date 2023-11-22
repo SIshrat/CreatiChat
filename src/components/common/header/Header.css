@@ -36,6 +36,7 @@
     color: white;
 }
 .sign-in {
+    text-decoration: none;
     padding: 8px 30px;
     margin-left: 15px;
     border: none;
@@ -45,6 +46,7 @@
     background-color: #FFADB9;
 }
 .sign-up {
+    text-decoration: none;
     padding: 8px 30px;
     margin-left: 20px;
     border: none;
@@ -62,4 +64,20 @@ p {
 }
 .sign-up:hover {
     background-color: #ffcd79;
+}
+
+.sign-out {
+    text-decoration: none;
+    padding: 8px 30px;
+    margin-left: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #FFADB9; 
+}
+
+.currentUser-img{
+    height: 60px;
+    border-radius: 100%;
 }

@@ -4,13 +4,16 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
 
+import GuestHomeView from './components/homeview/GuestHomeView';
 import HomeView from './components/homeview/HomeView';
 import CreatePostView from './components/createview/CreatePostView';
 import EditPostView from './components/editview/EditPostView';
 import Footer from './components/common/footer/Footer';
+import defaultAvatar from './images/defaultAvatar.jpg';
 
 function App() {
 
+  // Setup dummy posts
   const DUMMY_POSTS = [
     {
       id: 'a3',
@@ -24,7 +27,7 @@ function App() {
     {
       id: 'a2',      
       postId: 'b2',
-      title: '',
+      title: 'Looking for idea to make a new site!',
       description: 'I am looking forward to make a new website, particularly something involving-well, whatever it is...what do you guys think?',
       date: "11-01-2023",
       username: 'Shi',
@@ -39,8 +42,16 @@ function App() {
       username: 'Toucanucan',
       avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3xh2m4bT6AiPkeH4C2_ObAKw1eb37pufGGA&usqp=CAU',      
     },
-
   ]
+
+  // Setup user's original posts
+  const [postList, setPostList] = useState([]);
+  const addNewPostHandler = (newPost) => {
+      setPostList((prevUserPosts) => {
+          return [newPost,...prevUserPosts]
+      });
+      addPostHandler(newPost);
+  }
 
   // Set the dummy posts to the list and handle new posts
   const[globalList, setGlobalList] = useState(DUMMY_POSTS);
@@ -50,19 +61,26 @@ function App() {
     });
   }
 
+    // Setup default user for their post list
+    const [currentUser, setCurrentUser] = useState({
+      username: 'DefaultUsername',
+      avatar: defaultAvatar,
+    }); 
+
+
   // Setup state of isLoggedIn
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const logStateHandler = () => {
     setIsLoggedIn(!isLoggedIn);
   }
 
-
   return (
     <Router> 
       <div>
         <Routes>
-          <Route exact path='/' element={<HomeView posts={globalList} logState={isLoggedIn} toggleLogin={logStateHandler}/>}/>
-          <Route path='/create-post:id' element={<CreatePostView onSavePostData={addPostHandler}/>}/>
+          <Route exact path='/' element={<HomeView posts={globalList} logState={isLoggedIn} toggleLogin={logStateHandler} user={currentUser}/>}/>
+          <Route path='/home' element={<HomeView posts={globalList} userPosts={postList} logState={isLoggedIn} toggleLogin={logStateHandler} user={currentUser}/>}/>
+          <Route path='/create-post' element={<CreatePostView onSavePostData={addNewPostHandler} user={currentUser}/>}/>
           <Route path='/update/:id' element={<EditPostView />}/>
         </Routes>
         <Footer />

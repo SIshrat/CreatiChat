@@ -1,10 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
 import Header from '../common/header/Header';
 import Navbar from '../common/navbar/Navbar';
 import PostBox from '../common/postbox/PostBox';
 
-const HomeView = (props) => {
+const GuestHomeView = (props) => {
 
     return(
         <>
@@ -16,4 +15,4 @@ const HomeView = (props) => {
     
 }
 
-export default HomeView;
+export default GuestHomeView;

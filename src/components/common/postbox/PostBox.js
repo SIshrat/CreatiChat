@@ -4,14 +4,7 @@ import GlobalPostList from '../post/GlobalPostList';
 import UserPostList from '../post/UserPostList';
 
 const PostBox = (props) => {
-    // Setup user's original posts
-    const [postList, setPostList] = useState([]);
-    const addNewPostHandler = (newPost) => {
-        setPostList((prevUserPosts) => {
-            return [newPost,...prevUserPosts]
-        });
-    }
-    
+
     return(
         <div className="container">
             <div className="left-section">
@@ -19,7 +12,7 @@ const PostBox = (props) => {
             </div>
             <div className="right-section">
                 {(props.logState) ? 
-                (<UserPostList userPosts={postList} onSaveUserPostData={addNewPostHandler}/>)
+                (<UserPostList userPosts={props.userPosts}/>)
                 : (<p> Please sign in to see and make your posts</p>)
                 }
             </div>
