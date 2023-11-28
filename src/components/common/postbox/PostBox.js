@@ -13,7 +13,7 @@ const PostBox = (props) => {
             <div className="right-section">
                 {(props.logState) ? 
                 (<UserPostList userPosts={props.userPosts}/>)
-                : (<p> Please sign in to see and make your posts</p>)
+                : (<p>Please sign in to see and make your posts</p>)
                 }
             </div>
         </div>

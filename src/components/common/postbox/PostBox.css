@@ -9,7 +9,6 @@
   }
 
 .left-section {
-    flex: 1; /* Take up available space */
     padding-right: 20px; /* Add spacing between sections */
 }
   
@@ -17,6 +16,10 @@
     padding-left: 20px; /* Add spacing between sections */
     background-color: white;
     border: 15px solid #ffe0ac;
-    padding: 185px 170px;
+    flex: 1;
+    padding: 200px 100px;
+}
+.right-section p {
+    text-align: center;
 }
   

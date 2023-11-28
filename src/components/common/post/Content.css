@@ -1,12 +1,12 @@
 .user-content {
-    width: 800px;
+    width: 720px;
 }
 
 .description-container {
     border: 2px solid #FFE0AC;
     border-radius: 5px;
     padding: 5px;
-    width: 100%;
+    width: 97%;
 }
 
 .user-content h5 {
