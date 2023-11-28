@@ -7,7 +7,7 @@ import CreateBox from './CreateBox';
 const CreatePostView = (props) => {
     return (
         <>
-            <Header />
+            <Header logState={true} user={props.user} showBtn={false}/>
             <Navbar />
             <CreateBox user={props.user} onSavePostData={props.onSavePostData}/>
         </>

@@ -6,9 +6,13 @@ import '../common/Button.css';
 
 const AddPost = (props) => {
     const navigate = useNavigate();
+    const today = new Date();
+    const currentDate = 
+    (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
 
     const [enteredTitle, setEnteredTitle] = useState('');
     const [enteredDescription, setEnteredDescription] = useState('');
+    const [enteredDate, setEnteredDate] = useState(currentDate);
 
     const titleChangeHandler = (event) => {
         setEnteredTitle(event.target.value);
@@ -25,7 +29,7 @@ const AddPost = (props) => {
             id: Math.random().toString(),
             title: enteredTitle,
             description: enteredDescription,
-            date: Date.now,
+            date: enteredDate,
             username: props.user.username,
             avatar: props.user.avatar
         };
@@ -37,6 +41,7 @@ const AddPost = (props) => {
             console.log(postData);
             setEnteredTitle('');
             setEnteredDescription('');
+            setEnteredDate(currentDate);
             props.onSavePostData(postData);
             navigate(-1);
         }

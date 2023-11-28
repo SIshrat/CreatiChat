@@ -7,7 +7,7 @@ const GuestHomeView = (props) => {
 
     return(
         <>
-            <Header logState={props.logState} toggleLogin={props.toggleLogin} user={props.user}/>
+            <Header logState={false} toggleLogin={props.toggleLogin} user={props.user} showBtn={true}/>
             {(props.logState) ? (<Navbar />) : (null)}
             <PostBox posts={props.posts} userPosts={props.userPosts} logState={props.logState}/>
         </>

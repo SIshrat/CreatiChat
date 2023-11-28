@@ -5,7 +5,7 @@ import logo from '../../../images/CreatiChat Logo.png';
 import User from '../user/User';
 import Button from '../Button';
 
-const Header = ({logState, toggleLogin, user}) => {    
+const Header = ({logState, toggleLogin, user, showBtn}) => {    
 
     return(
         <header className="header">
@@ -21,7 +21,7 @@ const Header = ({logState, toggleLogin, user}) => {
                 : (<div className="guest-box">
                     <p className="guest-msg"> Welcome, {user.username}!</p>
                     <img src={user.avatar} alt="defaultAvatar" className="currentUser-img"/>
-                    <Link to="/" className="sign-out" onClick={toggleLogin}> Sign Out </Link>
+                    { showBtn ? <Link to="/" className="sign-out" onClick={toggleLogin}> Sign Out </Link> : null}
                 </div>)
                 }
             </div>
