@@ -1,15 +1,6 @@
 
 .user-item { display: flex;}
 
-.user-content {
-    list-style-type: none;
-    padding: 0;
-}
-
-.post {
-    list-style: none;
-}
-
 .user-img {
     list-style-type: none;
 
@@ -17,6 +8,15 @@
   height: 100px;
   margin-right: 1rem;
   border-radius: 100%;
+}
+
+.post-border {
+    border: 5px solid #6886C5;
+    border-radius: 15px;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
 }
 
 

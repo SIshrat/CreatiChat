@@ -4,6 +4,7 @@ import User from "../user/User";
 import Content from './Content';
 import './PostList.css';
 import './Post.css';
+import './Content.css'
 
 
 const GlobalPostList = (props) => {
@@ -11,7 +12,7 @@ const GlobalPostList = (props) => {
         <Post className="posts">
             <ul>
                 {props.posts.map((post) => (
-                    <>
+                    <div className='post-border'>
                         <User
                             key={post.id}
                             username={post.username}
@@ -23,7 +24,7 @@ const GlobalPostList = (props) => {
                             description={post.description}
                             date={post.date}
                         />
-                    </>
+                    </div>
                 ))}
             </ul>
         </Post>

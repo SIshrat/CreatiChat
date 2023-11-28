@@ -1,17 +1,21 @@
-.post-info {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 15px;
+.user-content {
+    width: 800px;
 }
 
-.post-info h5 {
+.description-container {
+    border: 2px solid #FFE0AC;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+}
+
+.user-content h5 {
     margin: 0;
+    padding-bottom: 5px;
     font-size: 1.2rem;
 }
 
-.post-info p {
-    margin-top: 5px;
+.description-container p {
+    margin: 0;
     color: #333;
 }

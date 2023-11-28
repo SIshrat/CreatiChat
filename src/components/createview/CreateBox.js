@@ -12,8 +12,10 @@ const CreateBox = (props) => {
             </div>
             <div className="c-right-section">
                 <div className="attachments">
+                    <h1>Attachments</h1>
                 </div>
                 <div className="drafts">
+                    <h1>Drafts</h1>
                 </div>
             </div>
         </div>
