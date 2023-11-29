@@ -15,8 +15,11 @@ const Header = ({logState, toggleLogin, user, showBtn}) => {
                 {(!logState) ?
                 (<div className="guest-box">
                     <p className="guest-msg"> Hello, you are viewing as a guest </p>
-                    <Link to="/home" className="sign-in" onClick={toggleLogin}> Sign In </Link>
-                    <Link to="/home" className="sign-up" onClick={toggleLogin}> Sign Up </Link>                                                          
+                    {showBtn ?
+                    <>
+                        <Link to="/home" className="sign-in" onClick={toggleLogin}> Sign In </Link>
+                        <Link to="/home" className="sign-up" onClick={toggleLogin}> Sign Up </Link>
+                    </> : null}                                               
                 </div>)
                 : (<div className="guest-box">
                     <p className="guest-msg"> Welcome, {user.username}!</p>

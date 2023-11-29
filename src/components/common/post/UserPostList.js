@@ -2,13 +2,15 @@ import React from "react";
 import Post from "./Post"
 import User from "../user/User";
 import Content from "./Content";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import './Post.css'
 import './PostList.css'
 import AddIcon from '../../../images/addIcon.png';
 
 const UserPostList = (props) => {
+    
+
     return (
         <>
             <Link to='/create-post' className="add-btn"><img src={AddIcon}/></Link>
@@ -27,6 +29,7 @@ const UserPostList = (props) => {
                             description={post.description}
                             date={post.date}
                         />
+                        {/* <Link to="/update/:id" className="post-btn">Edit</Link> */}
                     </>
                     ))}
                 </ul>

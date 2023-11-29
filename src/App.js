@@ -10,6 +10,7 @@ import CreatePostView from './components/createview/CreatePostView';
 import EditPostView from './components/editview/EditPostView';
 import Footer from './components/common/footer/Footer';
 import defaultAvatar from './images/defaultAvatar.jpg';
+import ErrorPage from './components/homeview/ErrorPage';
 
 function App() {
 
@@ -61,7 +62,7 @@ function App() {
     });
   }
 
-    // Setup default user for their post list
+    // Setup user for their post list
     const [currentUser, setCurrentUser] = useState({
       username: 'DefaultUsername',
       avatar: defaultAvatar,
@@ -74,14 +75,22 @@ function App() {
     setIsLoggedIn(!isLoggedIn);
   }
 
+  // Function to find post item from existing list and send it to EditPostView 
+  const getPostById = (postId) => {
+    return postList.find((post) => post.postId === postId);
+  };
+
+  // Update handler to change the contents of a post when edited
+
   return (
     <Router> 
       <div>
         <Routes>
           <Route exact path='/' element={<GuestHomeView posts={globalList} logState={isLoggedIn} toggleLogin={logStateHandler} user={currentUser}/>}/>
-          <Route path='/home' element={<HomeView posts={globalList} userPosts={postList} logState={isLoggedIn} toggleLogin={logStateHandler} user={currentUser}/>}/>
-          <Route path='/create-post' element={<CreatePostView onSavePostData={addNewPostHandler} user={currentUser}/>}/>
-          <Route path='/update/:id' element={<EditPostView />}/>
+          <Route path='/home' element={<HomeView posts={globalList} userPosts={postList} getPostId={getPostById} logState={isLoggedIn} toggleLogin={logStateHandler} user={currentUser}/>}/>
+          <Route path='/create-post/' element={<CreatePostView onSavePostData={addNewPostHandler} user={currentUser}/>}/>
+          <Route path='/update/:id' element={<EditPostView user={currentUser} getPostId={getPostById}/>}/>
+          <Route path='*' element={<ErrorPage />}/>
         </Routes>
         <Footer />
       </div>

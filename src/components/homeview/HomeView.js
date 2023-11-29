@@ -9,7 +9,7 @@ const HomeView = (props) => {
     return(
         <>
             <Header logState={props.logState} toggleLogin={props.toggleLogin} user={props.user} showBtn={true}/>
-            {(props.logState) ? (<Navbar />) : (null)}
+            {(props.logState) ? (<Navbar logState={props.logState}/>) : (null)}
             <PostBox posts={props.posts} userPosts={props.userPosts} logState={props.logState}/>
         </>
     );
