@@ -9,8 +9,8 @@ const EditPost = (props) => {
     const currentDate = 
     (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
 
-    const [enteredTitle, setEnteredTitle] = useState('');
-    const [enteredDescription, setEnteredDescription] = useState('');
+    const [enteredTitle, setEnteredTitle] = useState(props.post.title);
+    const [enteredDescription, setEnteredDescription] = useState(props.post.description);
     const [enteredDate, setEnteredDate] = useState(currentDate);
 
     const titleChangeHandler = (event) => {
@@ -35,8 +35,7 @@ const EditPost = (props) => {
             console.log("Changed post!");
             setEnteredTitle(props.post.title);
             setEnteredDescription(props.post.description);
-            setEnteredDate(currentDate);
-            // props.onSavePostData(postData);
+            setEnteredDate(enteredDate);
             navigate(-1);
         }
     }

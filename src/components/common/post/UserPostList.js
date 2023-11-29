@@ -9,7 +9,12 @@ import './PostList.css'
 import AddIcon from '../../../images/addIcon.png';
 
 const UserPostList = (props) => {
-    
+    const params = useParams();
+    const postId = params.id;
+    const getPostById = (id) => {
+        return props.userPosts.find((post) => post.postId === id);
+    };
+    const post = getPostById(postId);
 
     return (
         <>
@@ -29,7 +34,7 @@ const UserPostList = (props) => {
                             description={post.description}
                             date={post.date}
                         />
-                        {/* <Link to="/update/:id" className="post-btn">Edit</Link> */}
+                        <Link to={`/update-post/${post.postId}`} className="post-btn">Edit</Link>
                     </>
                     ))}
                 </ul>

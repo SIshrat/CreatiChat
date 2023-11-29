@@ -9,6 +9,15 @@ const AddPost = (props) => {
     const today = new Date();
     const currentDate = 
     (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+    // ID generator for the postId attribute
+    const generateIDHandler= (length) => {
+        const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';        
+        for ( let i = 0; i < length + 1; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
 
     const [enteredTitle, setEnteredTitle] = useState('');
     const [enteredDescription, setEnteredDescription] = useState('');
@@ -26,10 +35,11 @@ const AddPost = (props) => {
         
             // Create post object and clear form
         const postData = {
-            id: Math.random().toString(),
+            postId: generateIDHandler(10),
             title: enteredTitle,
             description: enteredDescription,
             date: enteredDate,
+            userId: props.user.userId,
             username: props.user.username,
             avatar: props.user.avatar
         };
