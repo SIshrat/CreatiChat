@@ -1,17 +1,15 @@
 import React from 'react';
 import Header from '../common/header/Header';
 import Navbar from '../common/navbar/Navbar';
-import ErrorPage from '../homeview/ErrorPage';
 import EditBox from './EditBox';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const EditPostView = (props) => {
     const params = useParams();
     const postId = params.postId;
     const postItem = props.getPostId(postId, props.userPosts);
     
-    if(!postItem){
-        
+    if(!postItem){        
         return(
             <>
                 <Header logState={true} user={props.user} showBtn={false}/>

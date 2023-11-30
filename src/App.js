@@ -8,6 +8,7 @@ import GuestHomeView from './components/homeview/GuestHomeView';
 import HomeView from './components/homeview/HomeView';
 import CreatePostView from './components/createview/CreatePostView';
 import EditPostView from './components/editview/EditPostView';
+import DeletePostView from './components/editview/DeletePostView';
 import Footer from './components/common/footer/Footer';
 import defaultAvatar from './images/defaultAvatar.jpg';
 import ErrorPage from './components/homeview/ErrorPage';
@@ -86,7 +87,15 @@ function App() {
   // Function to find post item from existing list and send it to EditPostView 
   const getPostById = (searchedPostId, postList) => {
     return postList.find((post) => post.postId === searchedPostId);
-  };
+  }
+
+  // Handler to delete item from user's list as well as global post list
+  const deleteHandler = (id) => {
+    const newUserPostList = postList.filter((item) => item.postId != id);
+    const newGlobalPostList = globalList.filter((item) => item.postId != id)
+    setPostList(newUserPostList);
+    setGlobalList(newGlobalPostList);
+  }
 
   // Update handler to change the contents of a post when edited
 
@@ -98,6 +107,7 @@ function App() {
           <Route path='/home' element={<HomeView posts={globalList} userPosts={postList} logState={isLoggedIn} toggleLogin={logStateHandler} user={currentUser}/>}/>
           <Route path='/create-post/' element={<CreatePostView onSavePostData={addNewPostHandler} user={currentUser}/>}/>
           <Route path='/update-post/:postId' element={<EditPostView user={currentUser} userPosts={postList} getPostId={getPostById}/>}/>
+          <Route path='/delete-post/:postId' element={<DeletePostView user={currentUser} userPosts={postList} getPostId={getPostById} onDelete={deleteHandler}/>}/>
           <Route path='*' element={<ErrorPage />}/>
         </Routes>
         <Footer />

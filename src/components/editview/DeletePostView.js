@@ -1,16 +1,32 @@
 import React from 'react';
 import Header from '../common/header/Header';
 import Navbar from '../common/navbar/Navbar';
-import CreateBox from '../createview/CreateBox';
+import DeleteBox from './DeleteBox';
+import { useParams } from 'react-router-dom';
 
-const EditPostView = (props) => {
-    return (
-        <>
-            <Header logState={true} user={props.user} showBtn={false}/>
-            <Navbar logState={true}/>
-            <CreateBox user={props.user} onSavePostData={props.onSavePostData}/>
-        </>
-    );    
+const DeletePostView = (props) => {
+    const params = useParams();
+    const postId = params.postId;
+    const postItem = props.getPostId(postId, props.userPosts);
+
+    if(!postItem){
+        return(
+            <>
+                <Header logState={true} user={props.user} showBtn={false}/>
+                <Navbar logState={true}/>
+                <h3>Error</h3>
+                <p>Post not found</p>
+            </>
+        );
+    } else {
+        return (
+            <>
+                <Header logState={true} user={props.user} showBtn={false}/>
+                <Navbar logState={true}/>
+                <DeleteBox user={props.user} postItem={postItem} onDelete={props.onDelete}/>
+            </>
+        );
+    }    
 }
 
-export default EditPostView;
+export default DeletePostView;

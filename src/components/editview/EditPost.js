@@ -57,6 +57,7 @@ const EditPost = (props) => {
                     value={enteredDescription}
                     onChange={descriptionChangeHandler}
                 ></textarea>
+                <Link to={`/delete-post/${props.post.postId}`} className="delete-btn"> Delete</Link>
                 <Button className="post-btn" type="submit">Confirm</Button>
             </form>
         </div>
