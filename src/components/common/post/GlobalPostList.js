@@ -10,7 +10,7 @@ import './Content.css'
 const GlobalPostList = (props) => {
     return (
         <Post className="posts">
-            <ul>
+            <ul className='g-list'>
                 {props.posts.map((post) => (
                     <div className='post-border'>
                         <User
