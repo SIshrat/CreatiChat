@@ -21,7 +21,7 @@ const DeleteBox = (props) => {
             </div>
             <div className="c-right-section">
                 <div className="review">
-                    <h2>Post</h2>
+                    <h2>The Post You will Delete</h2>
                     <h4>Title:</h4>
                     <h5> {props.postItem.title} </h5>                   
                     <h4>Description:</h4>

@@ -39,3 +39,14 @@
     cursor: pointer;
     background-color: #FFADB9;   
 }
+
+.delete-btn {
+        padding: 4px 20px;
+        margin: 0px 520px  0px 0px;
+        width: fit-content;
+        border: none;
+        border-radius: 20px;
+        text-decoration: none;
+        background-color: #ff0000;
+        color: #fff;    
+}

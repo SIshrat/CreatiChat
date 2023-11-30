@@ -44,14 +44,14 @@ const EditPost = (props) => {
         <div className="form-layout">
             <form onSubmit={submitHandler}>
                 <input
-                    placeholder='Title'
+                    placeholder='Title (Required)'
                     id="title"
                     type="text"
                     value={enteredTitle}
                     onChange={titleChangeHandler}
                 />
                 <textarea
-                    placeholder='Text (optional)'
+                    placeholder='Text (Required)'
                     id="description"
                     type="text"
                     value={enteredDescription}
