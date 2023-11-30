@@ -38,9 +38,34 @@ router.get('/new', (req, res) => {
     res.send('User New Form');
 });
 
-// Create User
-router.post('/', (req, res) => {
+// Create User  Not Done Yet.
+router.post('/',async (req, res) => {
     res.send('Create user');
+
+    const {username, password} = req.body;
+
+    try{
+        //hash the password
+        const hashedPassword = await bcrypted.hash(password, 10)
+
+        //create user with hashed password
+        const newUser = new User({
+            //temporary
+            userId: Math.random(0-10000),
+            username: username,
+            password: hashedPassword,
+        });
+
+        //save the user to database
+        await newUser.save();
+
+
+    }
+    catch(error){
+        console.log("registration error")
+        res.status(500).json({message: 'Internal Server Error'});
+    }
+
 });
 
 // User CRUD operations
