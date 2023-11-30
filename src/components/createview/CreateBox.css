@@ -44,3 +44,15 @@
 .drafts h1 {
     margin-left: 15px;
 }
+
+.review {
+    margin-left: 15px;
+    padding-right: 500px;
+}
+
+h1, h2 {
+    color: #6886C5;
+}
+.c-left-section h2 {
+    margin-left: 20px;
+}

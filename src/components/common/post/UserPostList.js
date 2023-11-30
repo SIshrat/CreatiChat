@@ -20,22 +20,17 @@ const UserPostList = (props) => {
         <>
             <Link to='/create-post' className="add-btn"><img src={AddIcon}/></Link>
             <Post className="posts">
-                <ul>
+                <ul className="u-list">
                     {props.userPosts.map((post) => (
-                    <>
-                        <User
-                            key={post.id}
-                            username={post.username}
-                            avatar={post.avatar}
-                        />
-                        <Content 
+                    <div className="u-post-border">
+                        <Content
                             key={post.postId}
                             title={post.title}
                             description={post.description}
                             date={post.date}
                         />
-                        <Link to={`/update-post/${post.postId}`} className="post-btn">Edit</Link>
-                    </>
+                        <Link to={`/update-post/${post.postId}`} className="edit-btn">Edit</Link>
+                    </div>
                     ))}
                 </ul>
             </Post>

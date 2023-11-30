@@ -23,6 +23,16 @@
     color: #fff;
 }
 
+.edit-btn {
+    padding: 4px 20px;
+    margin: 0 0 0 520px;
+    border: none;
+    border-radius: 20px;
+    text-decoration: none;
+    background-color: #FFADB9;
+    color: #fff;
+}
+
 .add-btn {
     padding: 35px 10px 5px;
     border-radius: 100%;
