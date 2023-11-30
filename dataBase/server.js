@@ -1,21 +1,30 @@
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
 
-app.set("view engine", "ejs")
+app.set("view engine", "ejs");
+app.use(logger)
 
 app.get("/", (req, res) => {
-    console.log('Here')
-    res.sendStatus(500)
-    res.send("Hi")
-    res.render("index", {text: "World"})
-})
+  console.log('Here');
+  // Send a 500 status (Internal Server Error)
+  res.sendStatus(500);
+});
 
-const userRouter = require('./routes/users')
+// Set up routes for users and posts
+const userRouter = require('./routes/users');
+const postRouter = require('./routes/post');
 
-//turn on routes for users and listens
-app.use('/users', userRouter)
+app.use('/users', userRouter);
+app.use('/post', postRouter);
+
+//middleware
+function logger(req, res, next){
+    console.log(req.originalUrl)
+    next()
+}
+
 
 const port = 3000;
-app.listen(post);
-
-console.log("Server running on: " + port)
+app.listen(port, () => {
+  console.log("Server running on: " + port);
+});
