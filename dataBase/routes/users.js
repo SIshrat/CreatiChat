@@ -1,12 +1,11 @@
 const express = require('express');
+const bcryptjs = require('bcryptjs')
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+const auth = require("../models/userModel");
 
-// Middleware for handling userId parameter
-router.param('userId', (req, res, next, userId) => {
-    // You can use userId for specific processing if needed
-    console.log(`User ID: ${userId}`);
-    next();
-});
+
+// Middleware for handling username parameter
 
 // Middleware for handling username parameter
 router.param('username', (req, res, next, username) => {
@@ -30,58 +29,74 @@ router.param('avatar', (req, res, next, avatar) => {
 });
 
 //other routes
-router.get('/', (req, res) => {
+//get all users
+router.get('/'), (req, res) => {
+    res.send('user route')
+}
+
+router.get('/all', (req, res) => {
     res.send('User List');
 });
 
-router.get('/new', (req, res) => {
-    res.send('User New Form');
-});
-
-// Create User  Not Done Yet.
-router.post('/',async (req, res) => {
-    res.send('Create user');
-
-    const {username, password} = req.body;
-
+router.post('/signup',async (req, res) => {
     try{
+        const {username, password, avatar} = req.body;
+        if(!username || !password || avatar){
+            return res.status(400).json({msg: "Please enter all the fields"});
+        }
+        //check for same user in database
+        const existingUser = await User.findOne({username})
+        if(existingUser){
+            return res
+                .status(400)
+                .json({msg: "User with same username already exist"})
+        }
         //hash the password
-        const hashedPassword = await bcrypted.hash(password, 10)
+        const hashedPassword = await bcryptjs.hash(password, 8)
 
         //create user with hashed password
         const newUser = new User({
-            //temporary
-            userId: Math.random(0-10000),
             username: username,
             password: hashedPassword,
+            avatar: avatar,
         });
-
         //save the user to database
-        await newUser.save();
-
+        const savedUser = await newUser.save();
+        res.json(savedUser);
 
     }
     catch(error){
         console.log("registration error")
         res.status(500).json({message: 'Internal Server Error'});
     }
+});
+//login user
+router.post('/login', async (req,res) =>{
+    try {
+        const{username, password} = req.body;
+        if(!username || !password) {
+            return res.status(400).json({msg: "please fill out the fields"});
+        }
+        const user = await User.findOne({username});
+        if(!user) {
+            return res
+                    .status(400)
+                    .send({msg: "user that name does not exist"})
+        }
 
+        const isMatch = await bcryptjs.compare(password, user.password)
+        if(!isMatch){
+            return res.status(400).send({msg: "password is wrong"})
+        }
+        const token = jwt.sign({id: user._id}, "passwordKey");
+        res.json({token, user: {id: user._id, username: user.username}});
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
 });
 
-// User CRUD operations
-router.route('/:userId')
-    .get((req, res) => {
-        res.send(`Get User with ID ${req.params.userId}`);
-    })
-    .put((req, res) => {
-        res.send(`Update User with ID ${req.params.userId}`);
-    })
-    .delete((req, res) => {
-        res.send(`Delete User with ID ${req.params.userId}`);
-    });
-
 // Username CRUD
-router.route('/:userId/username/:username')
+router.route('/:username')
     .get((req, res) => {
         res.send(`Get Username with ID ${req.params.username}`);
     })
@@ -93,7 +108,7 @@ router.route('/:userId/username/:username')
     });
 
 // Password CRUD
-router.route('/:userId/password/:password')
+router.route('/:username/password/:password')
     .get((req, res) => {
         res.send(`Get Password with ID ${req.params.password}`);
     })
@@ -105,7 +120,7 @@ router.route('/:userId/password/:password')
     });
 
 // Avatar CRUD
-router.route('/:userId/avatar/:avatar')
+router.route('/:username/avatar/:avatar')
     .get((req, res) => {
         res.send(`Get Avatar with ID ${req.params.avatar}`);
     })
