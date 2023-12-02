@@ -11,6 +11,7 @@
 .c-left-section {
     flex: 1;
     padding-right: 20px;
+    width: 50%;
 }
   
 .c-right-section {
@@ -20,7 +21,9 @@
     border-right-width: 0;
     border-bottom-width: 0;
     display: flex;
+    flex: 1;
     flex-direction: column;
+    width: 50%;
 }
 
 .attachments {
@@ -47,7 +50,8 @@
 
 .review {
     margin-left: 15px;
-    padding-right: 500px;
+    padding-right: 0px;
+    flex-wrap: wrap; /* Allow content to wrap into the next line */    
 }
 
 h1, h2 {
