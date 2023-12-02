@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /creatichat
+/dataBase/node_modules
 /.pnp
 .pnp.js
 
