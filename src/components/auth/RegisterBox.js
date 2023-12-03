@@ -11,7 +11,6 @@ const RegisterBox = (props) => {
                 <GlobalPostList posts={props.posts}/>
             </div>
             <div className="right-section">
-                <h2>Your Posts</h2>
                 {(props.loggingIn) ?
                 (<Login />)
                 : (<Signup />)
