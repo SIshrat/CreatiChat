@@ -2,32 +2,9 @@ const express = require('express');
 const bcryptjs = require('bcryptjs')
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const auth = require("../models/userModel");
 const User = require('../models/userModel');
 
-
-// Middleware for handling username parameter
-
-// Middleware for handling username parameter
-router.param('username', (req, res, next, username) => {
-    // You can use username for specific processing if needed
-    console.log(`Username: ${username}`);
-    next();
-});
-
-// Middleware for handling password parameter
-router.param('password', (req, res, next, password) => {
-    // You can use password for specific processing if needed
-    console.log(`Password: ${password}`);
-    next();
-});
-
-// Middleware for handling avatar parameter
-router.param('avatar', (req, res, next, avatar) => {
-    // You can use avatar for specific processing if needed
-    console.log(`Avatar: ${avatar}`);
-    next();
-});
+router.use(express.json());
 
 //root route
 router.get('/', (req, res) => {
@@ -48,16 +25,31 @@ router.get('/', (req, res) => {
     // Send the HTML snippet as a response
     res.send(htmlSnippet);
 });
-router.get('/all', (req, res) => {
-    res.send('User List');
+router.get('/all', async (req, res) => {
+    console.log("running all")
+    try {
+        const userList = await User.find();
+        res.json(userList);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: 'Internal Server Error' });
+    }
 });
+
 //create new Post
 router.post('/signup',async (req, res) => {
     try{
+        console.log("running /signup")
+        console.log("const activate");
         const {username, password, avatar} = req.body;
-        if(!username || !password || avatar){
+        console.log("const complete");
+
+        console.log(`username: ${username}\npassword: ${password}\n avatar: ${avatar}\n`)
+
+        if(!username || !password || !avatar){
             return res.status(400).json({msg: "Please enter all the fields"});
         }
+
         //check for same user in database
         const existingUser = await User.findOne({username})
         if(existingUser){
@@ -75,19 +67,23 @@ router.post('/signup',async (req, res) => {
             avatar: avatar,
         });
         //save the user to database
-        const savedUser = await newUser.save();
+        console.log(newUser)
+        const savedUser = newUser.save();
         res.json(savedUser);
 
     }
     catch(error){
         console.log("registration error")
+        console.log(error)
         res.status(500).json({message: 'Internal Server Error'});
     }
 });
 //login user
 router.post('/login', async (req,res) =>{
     try {
+        console.log("running /login")
         const{username, password} = req.body;
+        console.log(username + " " + password)
         if(!username || !password) {
             return res.status(400).json({msg: "please fill out the fields"});
         }
@@ -104,6 +100,7 @@ router.post('/login', async (req,res) =>{
         }
         const token = jwt.sign({id: user._id}, "passwordKey");
         res.json({token, user: {id: user._id, username: user.username}});
+        console.log("login successful")
     } catch (error) {
         res.status(500).json({error: error.message});
     }
@@ -118,7 +115,7 @@ router.get('/all', async (req, res) => {
       }
 })
 
-// Username CRUD
+// User CRUD
 router.route('/:username')
     .get(async (req, res) => {
         try {
@@ -149,23 +146,46 @@ router.route('/:username')
         }
     });
 // Avatar CRUD
-router.route('/:username/avatar/:avatar')
+router.route('/:username/avatar/')
     .get(async (req, res) => {
         try {
+            console.log("running :username/avatar")
+            const username = req.params.username
+            console.log(username)
             // Retrieve avatar by username from the database
-            const avatar = await Avatar.findOne({
-                username: req.params.username
-            });
+            const avatar = await User.findOne({username});
+            console.log(avatar)
 
             if (!avatar) {
                 return res.status(404).json({ msg: 'Avatar not found' });
             }
 
             // Send the avatar details as a JSON response
-            res.json(avatar);
+            res.json(avatar.avatar);
         } catch (error) {
+            console.log(error)
             res.status(500).json({ msg: 'Internal Server Error' });
         }
     })
+
+//example thingy
+// Example route to test user creation
+router.post('/test', async (req, res) => {
+    console.log("running test");
+    const userTest = new User({
+      "username": "super",
+      "password": "ham",
+      "avatar": "https://i.ytimg.com/vi/a2BcjMCYFq0/maxresdefault.jpg"
+    });
+  
+    try {
+      const testUser = await userTest.save();
+      res.json(testUser);
+    } catch (error) {
+      console.error("Error creating test user:", error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
+  
 
 module.exports = router;
