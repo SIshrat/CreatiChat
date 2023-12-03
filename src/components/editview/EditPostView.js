@@ -12,7 +12,7 @@ const EditPostView = (props) => {
     if(!postItem){        
         return(
             <>
-                <Header logState={true} user={props.user} showBtn={false}/>
+                <Header logState={true} user={props.user}/>
                 <Navbar logState={true}/>
                 <h3>Error</h3>
                 <p>Post not found</p>

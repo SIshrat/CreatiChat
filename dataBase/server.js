@@ -4,11 +4,27 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(logger)
 
-app.get("/", (req, res) => {
-  console.log('Here');
-  // Send a 500 status (Internal Server Error)
-  res.sendStatus(500);
+//default route
+app.get('/', (req, res) => {
+  const htmlSnippet = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Node.js App</title>
+    </head>
+    <body>
+        <h1>Hiyo, use /post or /users to then access the other routes</h1>
+        <img src="https://i.ytimg.com/vi/a2BcjMCYFq0/maxresdefault.jpg" "nihahaha">
+    </body>
+    </html>
+  `;
+
+  // Send the HTML snippet as a response
+  res.send(htmlSnippet);
 });
+
 
 // Set up routes for users and posts
 const userRouter = require('./routes/users');
