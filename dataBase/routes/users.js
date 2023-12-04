@@ -3,7 +3,6 @@ const bcryptjs = require('bcryptjs')
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const auth = require("../models/userModel");
-const User = require('../models/userModel');
 
 
 // Middleware for handling username parameter
@@ -29,29 +28,16 @@ router.param('avatar', (req, res, next, avatar) => {
     next();
 });
 
-//root route
-router.get('/', (req, res) => {
-    const htmlSnippet = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>My Node.js App</title>
-      </head>
-      <body>
-          <h1>User Route, use /:originalPoster/:title to find the exact post, /all gets you all post and /:originalPoster/all for specified user all</h1>
-          <img src="https://i.redd.it/j8e7qtqy2s191.jpg" alt="Tenshi Fumo" width= "800px" height= "500">
-      </body>
-      </html>
-    `
-    // Send the HTML snippet as a response
-    res.send(htmlSnippet);
-});
+//other routes
+//get all users
+router.get('/'), (req, res) => {
+    res.send('user route')
+}
+
 router.get('/all', (req, res) => {
     res.send('User List');
 });
-//create new Post
+
 router.post('/signup',async (req, res) => {
     try{
         const {username, password, avatar} = req.body;
@@ -108,64 +94,41 @@ router.post('/login', async (req,res) =>{
         res.status(500).json({error: error.message});
     }
 });
-//get all users
-router.get('/all', async (req, res) => {
-    try {
-        const posts = await User.find();
-        res.json(posts);
-      } catch (error) {
-        res.status(500).json({msg: "Internal Server Error"})
-      }
-})
 
 // Username CRUD
 router.route('/:username')
-    .get(async (req, res) => {
-        try {
-            // Retrieve user by username from the database
-            const user = await User.findOne({ username: req.params.username });
-
-            if (!user) {
-                return res.status(404).json({ msg: 'User not found' });
-            }
-            // Send the user details as a JSON response
-            res.json(user);
-        } catch (error) {
-            res.status(500).json({ msg: 'Internal Server Error' });
-        }
+    .get((req, res) => {
+        res.send(`Get Username with ID ${req.params.username}`);
     })
-    .delete(async (req, res) => {
-        try {
-            // Delete the user by username from the database
-            const deletedUser = await User.findOneAndDelete({ username: req.params.username });
-            if (!deletedUser) {
-                return res.status(404).json({ msg: 'User not found' });
-            }
-
-            // Send a success message along with the deleted user details
-            res.json({ msg: 'User deleted successfully', deletedUser });
-        } catch (error) {
-            res.status(500).json({ msg: 'Internal Server Error' });
-        }
+    .put((req, res) => {
+        res.send(`Update Username with ID ${req.params.username}`);
+    })
+    .delete((req, res) => {
+        res.send(`Delete Username with ID ${req.params.username}`);
     });
+
+// Password CRUD
+router.route('/:username/password/:password')
+    .get((req, res) => {
+        res.send(`Get Password with ID ${req.params.password}`);
+    })
+    .put((req, res) => {
+        res.send(`Update Password with ID ${req.params.password}`);
+    })
+    .delete((req, res) => {
+        res.send(`Delete Password with ID ${req.params.password}`);
+    });
+
 // Avatar CRUD
 router.route('/:username/avatar/:avatar')
-    .get(async (req, res) => {
-        try {
-            // Retrieve avatar by username from the database
-            const avatar = await Avatar.findOne({
-                username: req.params.username
-            });
-
-            if (!avatar) {
-                return res.status(404).json({ msg: 'Avatar not found' });
-            }
-
-            // Send the avatar details as a JSON response
-            res.json(avatar);
-        } catch (error) {
-            res.status(500).json({ msg: 'Internal Server Error' });
-        }
+    .get((req, res) => {
+        res.send(`Get Avatar with ID ${req.params.avatar}`);
     })
+    .put((req, res) => {
+        res.send(`Update Avatar with ID ${req.params.avatar}`);
+    })
+    .delete((req, res) => {
+        res.send(`Delete Avatar with ID ${req.params.avatar}`);
+    });
 
 module.exports = router;
