@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import Header from '../common/header/Header';
 import Navbar from '../common/navbar/Navbar';
 import PostBox from '../common/postbox/PostBox';
-import UserContext from '../auth/UserContext';
 
 const HomeView = (props) => {
 
     return(
         <>
-            <Header />
+            <Header logState={props.logState} toggleLogin={props.toggleLogin} user={props.user} showBtn={true}/>
             {(props.logState) ? (<Navbar logState={props.logState}/>) : (null)}
             <PostBox posts={props.posts} userPosts={props.userPosts} logState={props.logState}/>
         </>

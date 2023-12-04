@@ -1,32 +1,11 @@
 const express = require("express");
-const app = express();
-const port = process.env.PORT || 8080;
 const mongoose = require("mongoose");
-const users = require ('./routes/users');
-const cors = require('cors');
-const userRouter = require('./routes/users');
-const postRouter = require('./routes/post');
-
-
-app.use(cors({ origin: true, credentials: true }));
-app.use(express.json({ extended: false }));
-
-// Set up routes for users and posts
-app.use('/users', userRouter);
-app.use('/post', postRouter);
+const app = express();
 
 // Set up the MongoDB connection
-// mongoose.connect("mongodb+srv://JoeyWin:tacocat@creatichatdatabase.jb2ovf7.mongodb.net/?retryWrites=true&w=majority");
-// Sishrat's MongoDB connection
-mongoose.set('strictQuery', false);
-const conn_str = "mongodb+srv://sishrat:si01237uga@cluster0.ynnnmas.mongodb.net/?retryWrites=true&w=majority";
-mongoose.connect(conn_str)
-.then(() => {
-    app.listen(port, () => console.log(`Server running on port ${port}`))
-    console.log('MongoDB Connection Succeeded...')
-})
-.catch(err => {
-    console.log(`Error in DB Connection ${err}`);
+mongoose.connect("mongodb+srv://JoeyWin:tacocat@creatichatdatabase.jb2ovf7.mongodb.net/?retryWrites=true&w=majority", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 // Check for successful connection
@@ -58,4 +37,19 @@ app.get('/', (req, res) => {
   // Send the HTML snippet as a response
   res.send(htmlSnippet);
 });
+
+// Set up routes for users and posts
+const userRouter = require('./routes/users');
+const postRouter = require('./routes/post');
+
+app.use('/users', userRouter);
+app.use('/post', postRouter);
+
+
+const port = 3000;
+app.listen(port, () => {
+  console.log("Server running on: " + port);
+});
+
+
 

@@ -1,43 +1,30 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Button from "../common/Button";
 import axios from "axios";
 import "./Login.css"
-import { useNavigate } from "react-router-dom";
-import UserContext from "./UserContext";
 
 const Login = (props) => {
-    const [username,setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [enteredUsername,setEnteredUsername] = useState('');
+    const [enteredPassword, setEnteredPassword] = useState('');
     const [displayPassword, setDisplayPassword] = useState('');
-    const [error, setError] = useState();
-    const navigate = useNavigate();
-    const { setUserData } = useContext(UserContext);
 
     const usernameChangeHandler = (event) => {
-        setUsername(event.target.value);
+        setEnteredUsername(event.target.value);
     }
     const passwordChangeHandler = (event) => {
         const value = event.target.value;
-        setPassword(value);
+        setEnteredPassword(value);
         setDisplayPassword('●'.repeat(value.length));
     }
     
-    async function submitHandler(event){
-        event.preventDefault();
-        try {
-            const loginUser = {username, password};
-            const loginRes = await axios.post("http://localhost:8080/users/login", loginUser);
-            setUserData({
-                token: loginRes.data.token,
-                user: loginRes.data.user,
-            });
 
-            localStorage.setItem("auth-token", loginRes.data.token);
-            navigate('/home');
-        } catch (err){
-            err.response.data.msg && setError(err.response.data.msg);
-            alert(err.response.data.msg);
-        }
+    const submitHandler = (event) => {
+        event.preventDefault();
+        
+        const userData = {
+            username: enteredUsername,
+            password: enteredPassword
+        }        
     }
 
     return (
@@ -50,7 +37,7 @@ const Login = (props) => {
                         <input 
                             type="text"
                             id="username"
-                            value={username}
+                            value={enteredUsername}
                             onChange={usernameChangeHandler}
                         />
                     </div>

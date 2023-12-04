@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Route } from 'react-router-dom';
@@ -14,14 +14,13 @@ import defaultAvatar from './images/defaultAvatar.jpg';
 import ErrorPage from './components/homeview/ErrorPage';
 import LoginView from './components/auth/LoginView';
 import SignupView from './components/auth/SignupView';
-import UserContext from './components/auth/UserContext';
-import axios from 'axios';
 
 function App() {
 
   // Setup dummy posts, userId is username as postId is 10 random characters
   const DUMMY_POSTS = [
     {
+      userId: 'Squakgull',
       postId: 'a3',
       title: 'Updates so far on this site',
       description: 'This site needs more work, but we could try giving more ideas!',
@@ -30,6 +29,7 @@ function App() {
       avatar: 'https://images.pexels.com/photos/56618/seagull-sky-holiday-bird-56618.jpeg?cs=srgb&dl=pexels-pixabay-56618.jpg&fm=jpg',
     },
     {
+      userId: 'Shi10312023',      
       postId: 'a2bcdefghi',
       title: 'Looking for idea to make a new site!',
       description: 'I am looking forward to make a new website, particularly something involving-well, whatever it is...what do you guys think?',
@@ -38,6 +38,7 @@ function App() {
       avatar: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/196f8baa-9221-435a-ab11-4c1f7a7b0e65/dbojulg-42d5ac0a-ddd3-44d7-8c24-a27780d153c7.png/v1/fill/w_894,h_894,q_70,strp/pixel_profile_by_chibi_creatorshi_dbojulg-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAwMCIsInBhdGgiOiJcL2ZcLzE5NmY4YmFhLTkyMjEtNDM1YS1hYjExLTRjMWY3YTdiMGU2NVwvZGJvanVsZy00MmQ1YWMwYS1kZGQzLTQ0ZDctOGMyNC1hMjc3ODBkMTUzYzcucG5nIiwid2lkdGgiOiI8PTEwMDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.ktNNjFzUBRpSgdqDNKtrquDGipv4Fx7FHJ_bG_kQI6c',
     },
     {
+      userId: 'Toucanucan10202023112233',
       postId: 'a1bcdefghi',
       title: 'Making new section in web',
       description: 'So I think this site could use some re-adjustment, the user logged in could see their posts in their feed.',
@@ -64,7 +65,16 @@ function App() {
     });
   }
 
+    // Setup user for their post list
+    const generateUserId = (name) => {
+      const accountStart = new Date();
+      const accStartDate = (accountStart.getMonth() + 1) + accountStart.getDate()+ accountStart.getFullYear();
+      const accStartTime = accountStart.getHours() + accountStart.getMinutes + accountStart.getSeconds(); 
+      return name + accStartDate +  accStartTime;
+    }
+
     const [currentUser, setCurrentUser] = useState({
+      userId: generateUserId('DefaultUsername'),
       username: 'DefaultUsername',
       avatar: defaultAvatar,
     }); 
@@ -87,58 +97,30 @@ function App() {
 
   // Handler to delete item from user's list as well as global post list
   const deleteHandler = (id) => {
-    const newUserPostList = postList.filter((item) => item.postId !== id);
-    const newGlobalPostList = globalList.filter((item) => item.postId !== id)
+    const newUserPostList = postList.filter((item) => item.postId != id);
+    const newGlobalPostList = globalList.filter((item) => item.postId != id)
     setPostList(newUserPostList);
     setGlobalList(newGlobalPostList);
   }
 
-  // Maintain user state using userData state variable
-  const [userData, setUserData] = useState({
-    token: undefined,
-    user: undefined,
-  });
-  useEffect(() => {
-    const checkLoggedIn = async () => {
-      let token = localStorage.getItem("auth-token");
-      if(token === null) {
-        localStorage.setItem("auth-token", "");
-        token = "";
-      }
-      const tokenResponse = await axios.post(
-        "http://localhost:8080/users/tokenIsValid",
-        null,
-        { headers: { "x-auth-token": token } }
-      );
-      if (tokenResponse.data) {
-        const userRes = await axios.get("http://localhost:8080/", {
-          headers: { "x-auth-token": token },
-        });
-        setUserData({
-          token,
-          user: userRes.data,
-        });
-      }
-    };
-    checkLoggedIn();
-  }, []);
+  // Update handler to change the contents of a post when edited
 
   return (
-    <UserContext.Provider value={{ userData, setUserData }}> 
-    <Router>
+    <Router> 
+      <div>
         <Routes>
-          <Route exact path='/' element={<GuestHomeView posts={globalList} logState={false}/>}/>
-          <Route path='/home' element={<HomeView posts={globalList} userPosts={postList} logState={true}/>}/>
-          <Route path='/login' element={<LoginView posts={globalList} logState={false}/>}/>
-          <Route path='/signup'element={<SignupView posts={globalList} logState={false}/>}/>
-          <Route path='/create-post/' element={<CreatePostView onSavePostData={addNewPostHandler} logState={true}/>}/>
-          <Route path='/update-post/:postId' element={<EditPostView userPosts={postList} getPostId={getPostById} logState={true}/>}/>
-          <Route path='/delete-post/:postId' element={<DeletePostView userPosts={postList} getPostId={getPostById} onDelete={deleteHandler} logState={true}/>}/>
-          <Route path='*' element={<ErrorPage />}/>
+          <Route exact path='/' element={<GuestHomeView posts={globalList} logState={false} toggleLogin={logStateHandler} user={currentUser}/>}/>
+          <Route path='/home' element={<HomeView posts={globalList} userPosts={postList} logState={true} toggleLogin={logStateHandler} user={currentUser}/>}/>
+          <Route path='/login' element={<LoginView posts={globalList} logState={false} toggleLogin={logStateHandler} user={currentUser}/>}/>
+          <Route path='/signup'element={<SignupView posts={globalList} logState={false} toggleLogin={logStateHandler} user={currentUser}/>}/>
+          <Route path='/create-post/' element={<CreatePostView onSavePostData={addNewPostHandler} user={currentUser}/>}/>
+          <Route path='/update-post/:postId' element={<EditPostView user={currentUser} userPosts={postList} getPostId={getPostById}/>}/>
+          <Route path='/delete-post/:postId' element={<DeletePostView user={currentUser} userPosts={postList} getPostId={getPostById} onDelete={deleteHandler}/>}/>
+          <Route path='*' element={<ErrorPage logState={isLoggedIn} toggleLogin={logStateHandler}/>}/>
         </Routes>
         <Footer />
+      </div>
     </Router>
-    </UserContext.Provider>
   );
 }
 

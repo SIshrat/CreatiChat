@@ -1,61 +1,45 @@
-import React, { useContext, useState } from "react";
-import defaultAvatar from '../../images/defaultAvatar.jpg';
+import React, { useState } from "react";
+import defaulAvatar from '../../images/defaultAvatar.jpg';
 import Button from "../common/Button";
 import "./Login.css"
-import { useNavigate } from "react-router-dom";
-import UserContext from "./UserContext";
-import axios from "axios";
 
 const Signup = (props) => {
-    const [username,setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [enteredUsername,setEnteredUsername] = useState('');
+    const [enteredPassword, setEnteredPassword] = useState('');
     const [displayPassword, setDisplayPassword] = useState('');
-    const [displayConfirmPassword, setDisplayConfirmPassword] = useState('');
-    const [avatar, setAvatar] = useState('');
-    const [error, setError] = useState();
-    const { setUserData } = useContext(UserContext);
-    const navigate = useNavigate();
+    const [enteredAvatar, setEnteredAvatar] = useState('');
 
     const usernameChangeHandler = (event) => {
-        setUsername(event.target.value);
+        setEnteredUsername(event.target.value);
     }
     const passwordChangeHandler = (event) => {
         const value = event.target.value;
-        setPassword(value);
+        setEnteredPassword(value);
         setDisplayPassword('●'.repeat(value.length));
     }
-    const confirmPasswordChangeHandler = (event) => {
-        const value = event.target.value;
-        setConfirmPassword(value);
-        setDisplayConfirmPassword('●'.repeat(value.length));   
-    }
     const avatarChangeHandler = (event) => {
-        let  value = event.target.value;
-        if(value.trim() === '') {value = defaultAvatar;}
-        setAvatar(value);
+        setEnteredAvatar(event.target.value);
     }
 
-
-    async function submitHandler (event){
+    const submitHandler = (event) => {
         event.preventDefault();
 
-        try {
-            const newUser = {username, password, confirmPassword, avatar};
-            await axios.post("http://localhost:8080/users/signup", newUser);
-            const loginRes = await axios.post("http://localhost:8080/users/login",{
-                username,
-                password,
-            });
-            setUserData({
-                token: loginRes.data.token,
-                user:  loginRes.data.user,
-            });
-            localStorage.setItem("auth-token", loginRes.data.token);
-            navigate('/home');
-        } catch (err) {
-            err.response.data.msg && setError(err.response.data.msg);
-            alert(err.response.data.msg);
+        const userData = {
+            username: enteredUsername,
+            password: enteredPassword,
+            avatar: enteredAvatar
+        }
+
+        if (userData.avatar.trim() === '') {
+            console.log("User did not enter avatar, setting default avatar");
+            userData.avatar = defaulAvatar;
+        }
+        if(userData.username.trim() === '') {
+            alert("Please enter a username");
+        } else if (userData.password.trim() === '') {
+            alert("Please enter a password");
+        } else{
+            console.log(userData);
         }
     }
 
@@ -69,7 +53,7 @@ const Signup = (props) => {
                         <input 
                             type="text"
                             id="username"
-                            value={username}
+                            value={enteredUsername}
                             onChange={usernameChangeHandler}
                         />
                     </div>
@@ -83,26 +67,17 @@ const Signup = (props) => {
                         />
                     </div>
                     <div className="login-input">
-                        <label>Confirm Password:</label>
-                        <input
-                            type="text"                    
-                            id="password"
-                            value={displayConfirmPassword}
-                            onChange={confirmPasswordChangeHandler}
-                        />
-                    </div>
-                    <div className="login-input">
                         <label>Image URL:</label>
                         <input
                             type="text"
                             id="avatar"
-                            value={avatar}
+                            value={enteredAvatar}
                             onChange={avatarChangeHandler}
                         />
                     </div>
                     <Button type="submit">Signup</Button>
-                </form>
-            </div>
+                </form>       
+            </div>     
         </div>
     );
 }
