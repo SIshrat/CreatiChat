@@ -27,11 +27,11 @@
     margin-right: 10px;
 }
 
-.user-box {
+.guest-box {
     background-color: #6886C5;
     padding: 40px 25px;
 }
-.user-msg {
+.guest-msg {
     font-size: 18px;
     color: white;
 }

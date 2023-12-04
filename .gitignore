@@ -4,10 +4,7 @@
 /node_modules
 /creatichat
 /dataBase/node_modules
-<<<<<<< HEAD
 /.pnp
-=======
->>>>>>> 4446a004f660ed1ae4856b2bc5d4d8702f35171b
 .pnp.js
 
 # testing

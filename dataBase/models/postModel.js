@@ -2,8 +2,7 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-  //username associated with the post
-  originalPoster: {
+  username: {
     type: String,
     required: true,
   },

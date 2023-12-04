@@ -5,23 +5,26 @@ import logo from '../../../images/CreatiChat Logo.png';
 import User from '../user/User';
 import Button from '../Button';
 
-const Header = (props) => {    
+const Header = ({logState, toggleLogin, user, showBtn}) => {    
 
     return(
         <header className="header">
             <div className="website">
                 <img src={logo} alt="Logo" width="84" height="87" className="logo-img" />
                 <p className="name">CreatiChat</p>
-                {(!props.logState) ?
-                (<div className="user-box">
-                    <p className="user-msg"> Hello, you are viewing as a guest </p>
-                    <><Link to="/login" className="sign-in" > Sign In </Link>
-                    <Link to="/signup" className="sign-up"> Sign Up </Link></>                                               
+                {(!logState) ?
+                (<div className="guest-box">
+                    <p className="guest-msg"> Hello, you are viewing as a guest </p>
+                    {showBtn ?
+                    <>
+                        <Link to="/home" className="sign-in" onClick={toggleLogin}> Sign In </Link>
+                        <Link to="/home" className="sign-up" onClick={toggleLogin}> Sign Up </Link>
+                    </> : null}                                               
                 </div>)
-                : (<div className="user-box">
-                    <p className="user-msg"> Welcome, {props.user.username}!</p>
-                    <img src={props.user.avatar} alt="defaultAvatar" className="currentUser-img"/>
-                    <Link to="/" className="sign-out" onClick={props.toggleLogin}> Sign Out </Link>
+                : (<div className="guest-box">
+                    <p className="guest-msg"> Welcome, {user.username}!</p>
+                    <img src={user.avatar} alt="defaultAvatar" className="currentUser-img"/>
+                    { showBtn ? <Link to="/" className="sign-out" onClick={toggleLogin}> Sign Out </Link> : null}
                 </div>)
                 }
             </div>

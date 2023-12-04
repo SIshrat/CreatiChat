@@ -12,15 +12,13 @@ import DeletePostView from './components/editview/DeletePostView';
 import Footer from './components/common/footer/Footer';
 import defaultAvatar from './images/defaultAvatar.jpg';
 import ErrorPage from './components/homeview/ErrorPage';
-import LoginView from './components/auth/LoginView';
-import SignupView from './components/auth/SignupView';
 
 function App() {
 
-  // Setup dummy posts, userId is username as postId is 10 random characters
+  // Setup dummy posts, userId is username + mmddyyyy + hhmmss as postId is 10 random characters
   const DUMMY_POSTS = [
     {
-      userId: 'Squakgull',
+      userId: 'Squakgull0001',
       postId: 'a3',
       title: 'Updates so far on this site',
       description: 'This site needs more work, but we could try giving more ideas!',
@@ -83,11 +81,7 @@ function App() {
   // Setup state of isLoggedIn
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const logStateHandler = () => {
-    if(isLoggedIn) {
-      setIsLoggedIn(false);
-    } else {
-      setIsLoggedIn(true);
-    }
+    setIsLoggedIn(!isLoggedIn);
   }
 
   // Function to find post item from existing list and send it to EditPostView 
@@ -109,14 +103,12 @@ function App() {
     <Router> 
       <div>
         <Routes>
-          <Route exact path='/' element={<GuestHomeView posts={globalList} logState={false} toggleLogin={logStateHandler} user={currentUser}/>}/>
-          <Route path='/home' element={<HomeView posts={globalList} userPosts={postList} logState={true} toggleLogin={logStateHandler} user={currentUser}/>}/>
-          <Route path='/login' element={<LoginView posts={globalList} logState={false} toggleLogin={logStateHandler} user={currentUser}/>}/>
-          <Route path='/signup'element={<SignupView posts={globalList} logState={false} toggleLogin={logStateHandler} user={currentUser}/>}/>
+          <Route exact path='/' element={<GuestHomeView posts={globalList} logState={isLoggedIn} toggleLogin={logStateHandler} user={currentUser}/>}/>
+          <Route path='/home' element={<HomeView posts={globalList} userPosts={postList} logState={isLoggedIn} toggleLogin={logStateHandler} user={currentUser}/>}/>
           <Route path='/create-post/' element={<CreatePostView onSavePostData={addNewPostHandler} user={currentUser}/>}/>
           <Route path='/update-post/:postId' element={<EditPostView user={currentUser} userPosts={postList} getPostId={getPostById}/>}/>
           <Route path='/delete-post/:postId' element={<DeletePostView user={currentUser} userPosts={postList} getPostId={getPostById} onDelete={deleteHandler}/>}/>
-          <Route path='*' element={<ErrorPage logState={isLoggedIn} toggleLogin={logStateHandler}/>}/>
+          <Route path='*' element={<ErrorPage />}/>
         </Routes>
         <Footer />
       </div>
