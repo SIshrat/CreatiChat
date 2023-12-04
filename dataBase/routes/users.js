@@ -3,6 +3,7 @@ const bcryptjs = require('bcryptjs')
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const User = require('../models/userModel');
+const auth = require('../middleware/auth');
 
 router.use(express.json());
 
@@ -36,20 +37,22 @@ router.get('/all', async (req, res) => {
     }
 });
 
-//create new Post
+//signup/create new user
 router.post('/signup',async (req, res) => {
     try{
         console.log("running /signup")
         console.log("const activate");
-        const {username, password, avatar} = req.body;
+        const {username, password, confirmPassword, avatar} = req.body;
         console.log("const complete");
 
         console.log(`username: ${username}\npassword: ${password}\n avatar: ${avatar}\n`)
 
-        if(!username || !password || !avatar){
+        if(!username || !password || !avatar || !confirmPassword){
             return res.status(400).json({msg: "Please enter all the fields"});
         }
-
+        if(confirmPassword !== password) {
+            return res.status(400).json({msg: "Both passwords do not match"});
+        }
         //check for same user in database
         const existingUser = await User.findOne({username})
         if(existingUser){
@@ -70,7 +73,6 @@ router.post('/signup',async (req, res) => {
         console.log(newUser)
         const savedUser = newUser.save();
         res.json(savedUser);
-
     }
     catch(error){
         console.log("registration error")
@@ -78,12 +80,13 @@ router.post('/signup',async (req, res) => {
         res.status(500).json({message: 'Internal Server Error'});
     }
 });
+
 //login user
 router.post('/login', async (req,res) =>{
     try {
         console.log("running /login")
         const{username, password} = req.body;
-        console.log(username + " " + password)
+        console.log(username + ": " + password)
         if(!username || !password) {
             return res.status(400).json({msg: "please fill out the fields"});
         }
@@ -91,20 +94,44 @@ router.post('/login', async (req,res) =>{
         if(!user) {
             return res
                     .status(400)
-                    .send({msg: "user that name does not exist"})
+                    .send({msg: "username does not exist"})
         }
 
         const isMatch = await bcryptjs.compare(password, user.password)
         if(!isMatch){
-            return res.status(400).send({msg: "password is wrong"})
+            return res.status(400).send({msg: "Incorrect password"})
         }
         const token = jwt.sign({id: user._id}, "passwordKey");
         res.json({token, user: {id: user._id, username: user.username}});
-        console.log("login successful")
+        console.log("login successful");
     } catch (error) {
         res.status(500).json({error: error.message});
     }
 });
+// Check if token is valid
+router.post("/tokenIsValid", async (req, res) => {
+    try {
+        const token = req.header("x-auth-token");
+        if (!token) return res.json(false);
+        const verified = jwt.verify(token, "passwordKey");
+        if (!verified) return res.json(false);
+        const user = await User.findById(verified.id);
+        if (!user) return res.json(false);
+        return res.json(true);
+    } catch (err) {
+        res.status(500).json( {error: err.message });
+    }
+});
+
+router.get("/home", auth, async (req, res) => {
+    const user = await User.findById(req.user);
+    res.json({
+        username: user.username,
+        avatar: user.avatar,
+        id: user._id,
+    });
+});
+
 //get all users
 router.get('/all', async (req, res) => {
     try {
@@ -150,18 +177,21 @@ router.route('/:username/avatar/')
     .get(async (req, res) => {
         try {
             console.log("running :username/avatar")
-            const username = req.params.username
-            console.log(username)
-            // Retrieve avatar by username from the database
-            const avatar = await User.findOne({username});
-            console.log(avatar)
+            const username = req.params.username;
+            console.log(username);
+            const user = await User.findOne({username});
+            if(!user) 
+                return res.status(404).json({ msg: 'User not found' });
+            res.json({ avatar: user.avatar });
+            // // Retrieve avatar by username from the database
+            // const avatar = await User.findOne({username});
+            // console.log(avatar)
+            // if (!avatar) {
+            //     return res.status(404).json({ msg: 'Avatar not found' });
+            // }
 
-            if (!avatar) {
-                return res.status(404).json({ msg: 'Avatar not found' });
-            }
-
-            // Send the avatar details as a JSON response
-            res.json(avatar.avatar);
+            // // Send the avatar details as a JSON response
+            // res.json(avatar.avatar);
         } catch (error) {
             console.log(error)
             res.status(500).json({ msg: 'Internal Server Error' });

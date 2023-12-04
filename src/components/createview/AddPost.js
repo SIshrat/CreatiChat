@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './AddPost.css';
 import Button from '../common/Button';
 import '../common/Button.css';
@@ -39,7 +39,6 @@ const AddPost = (props) => {
             title: enteredTitle,
             description: enteredDescription,
             date: enteredDate,
-            userId: props.user.userId,
             username: props.user.username,
             avatar: props.user.avatar
         };

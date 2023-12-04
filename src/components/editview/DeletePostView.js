@@ -12,7 +12,7 @@ const DeletePostView = (props) => {
     if(!postItem){
         return(
             <>
-                <Header logState={true} user={props.user}/>
+                <Header userData={props.userData}/>
                 <Navbar logState={true}/>
                 <h3>Error</h3>
                 <p>Post not found</p>
@@ -21,7 +21,7 @@ const DeletePostView = (props) => {
     } else {
         return (
             <>
-                <Header logState={true} user={props.user} showBtn={false}/>
+                <Header userData={props.userData}/>
                 <Navbar logState={true}/>
                 <DeleteBox user={props.user} postItem={postItem} onDelete={props.onDelete}/>
             </>
