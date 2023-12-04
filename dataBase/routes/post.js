@@ -3,9 +3,6 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/postModel');
 
-router.use(express.json());
-
-
 router.get('/', (req, res) => {
   const htmlSnippet = `
     <!DOCTYPE html>
@@ -56,7 +53,6 @@ router.get('/:originalPoster/all', async (req, res) => {
 //date is already default in schema.
 router.post('/create', async(req, res) => {
   try{
-    console.log("running create Post")
     const {originalPoster, title, description} = req.body;
     if(!originalPoster || !title || !description){
       return res.status(400).json({msg: "Please enter all the fields"});

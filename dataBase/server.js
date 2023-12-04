@@ -1,21 +1,8 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
 
-// Set up the MongoDB connection
-mongoose.connect("mongodb+srv://JoeyWin:tacocat@creatichatdatabase.jb2ovf7.mongodb.net/?retryWrites=true&w=majority", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-// Check for successful connection
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.once("open", () => {
-  console.log("Connected to MongoDB");
-});
-
 app.set("view engine", "ejs");
+app.use(logger)
 
 //default route
 app.get('/', (req, res) => {
@@ -38,6 +25,7 @@ app.get('/', (req, res) => {
   res.send(htmlSnippet);
 });
 
+
 // Set up routes for users and posts
 const userRouter = require('./routes/users');
 const postRouter = require('./routes/post');
@@ -45,11 +33,14 @@ const postRouter = require('./routes/post');
 app.use('/users', userRouter);
 app.use('/post', postRouter);
 
+//middleware
+function logger(req, res, next){
+    console.log(req.originalUrl)
+    next()
+}
+
 
 const port = 3000;
 app.listen(port, () => {
   console.log("Server running on: " + port);
 });
-
-
-
