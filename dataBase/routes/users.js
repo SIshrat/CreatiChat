@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
           <title>My Node.js App</title>
       </head>
       <body>
-          <h1>/Users Route dont forget to add /users before all commands, use /:username to get user, /all gets you all username and /:username/avatar for specified avatar</h1>
+          <h1>User Route, use /:originalPoster/:title to find the exact post, /all gets you all post and /:originalPoster/all for specified user all</h1>
           <img src="https://i.redd.it/j8e7qtqy2s191.jpg" alt="Tenshi Fumo" width= "800px" height= "500">
       </body>
       </html>
